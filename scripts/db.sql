@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS `go_track`;
+USE  `go_track`;
+
+CREATE TABLE IF NOT EXISTS `newsletters` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `subscribed` BOOLEAN DEFAULT TRUE
+);
+
+
+
