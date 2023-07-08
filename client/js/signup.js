@@ -1,3 +1,6 @@
+if (localStorage.getItem("token")) {
+    window.location.href = "/";
+}
 window.addEventListener("load", () => {
     const register_btn = document.getElementById("register_btn");
     const name = document.getElementById("name");

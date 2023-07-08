@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import sequelize from "../utils/db.js"
 
-const UserSchema = sequelize.define('user', {
+const User = sequelize.define('user', {
     email: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -18,4 +18,6 @@ const UserSchema = sequelize.define('user', {
     },
 });
 
-export default UserSchema;
+
+
+export default User;

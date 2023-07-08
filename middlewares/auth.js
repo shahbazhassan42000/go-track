@@ -1,31 +1,32 @@
 import jwt from "jsonwebtoken";
-// import "../models/user.js";
-// import mongoose from "mongoose";
-// const User = mongoose.model("users");
+import User from "../models/user.js";
 export default {
   authenticate(req, res, next) {
-    const secretKey=process.env.SECRET_KEY;
+    const secretKey = process.env.SECRET_KEY;
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if (!token) {
       console.log("token not found");
-      return res.status(401).json({ message: 'Unauthenticated' });
+      return res.status(401).json('Unauthenticated');
     }
     jwt.verify(token, secretKey, (err, user) => {
       if (err) {
         console.log("token not valid");
-        return res.status(401).json({ message: 'Unauthenticated' });
+        return res.status(401).json('Unauthenticated');
       }
       //check if user is exists
-      User.findById(user.id,(err,user)=>{
-        if(user){
+      User.findByPk(user.id).then((user) => {
+        if (!user) {
+          return res.status(401).json('Unauthenticated');
+        } else {
+          console.log("user found");
           req.user = user;
-          next();
-        }else{
-          console.log("User not exists against the token");
-          return res.status(401).json({ message: 'Unauthenticated' });
+          return next();
         }
-      })
+      }).catch(err => {
+        console.log(err);
+        return res.status(401).json('Unauthenticated');
+      });
     });
   },
   authorize(roles = []) {
