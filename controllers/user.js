@@ -132,7 +132,6 @@ export default {
     console.log("Getting user by token");
     const user = req.user;
     user.password = undefined;
-    user.name = undefined;
     return res.status(200).json(user);
   },
   resetPassword(req, res, next) {
@@ -255,32 +254,6 @@ export default {
       } else {
         updateProfile(files, req, res, next, data);
       }
-    });
-  },
-  uploadImage(req, res, next) {
-    if (!fsNative.existsSync(`${__dirname}/${UPLOAD_PATH}/`)) {
-      fsNative.mkdirSync(`${__dirname}/${UPLOAD_PATH}/`);
-    }
-    const form = formidable({});
-    // form.multiples = true;
-    form.uploadDir = `${__dirname}/${UPLOAD_PATH}/`;
-    form.uploaddir = `${__dirname}/${UPLOAD_PATH}/`;
-
-    form.parse(req, (err, fields, files) => {
-      if (err) {
-        console.log(err);
-        return res.status(400).json("ERROR!!! While uploading image.");
-      }
-      const file = files.file;
-      if (!file) {
-        return res.status(404).json("File not found");
-      }
-
-      console.log(file?.path);
-
-      return res.status(200).json("File uploaded successfully");
-
-
     });
   }
 };

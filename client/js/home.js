@@ -1,17 +1,8 @@
 // check if token exists in local storage
 const token = localStorage.getItem("token");
 if (token) {
-    const user = JSON.parse(sessionStorage.getItem("user"));
-    if (user) {
-        // if user role is admin then redirect to admin portal 
-        if (user.role === "ADMIN") {
-            window.location.href = "/admin_portal/index.html";
-        }
-        // if user role is candidate then redirect to candidate portal
-        else if (user.role === "CANDIDATE") {
-            window.location.href = "/candidate_portal/index.html";
-        }
-    } else {
+    var user = JSON.parse(sessionStorage.getItem("user"));
+    if (!user) {
         //get user by token from server
         fetch("/api/user/getByToken", {
             method: "GET",
@@ -23,11 +14,6 @@ if (token) {
             if (res.status === 200) {
                 res.json().then(data => {
                     sessionStorage.setItem("user", JSON.stringify(data));
-                    if (data.role === "ADMIN") {
-                        window.location.href = "/admin_portal/index.html";
-                    } else if (data.role === "CANDIDATE") {
-                        window.location.href = "/candidate_portal/index.html";
-                    }
                 })
             } else {
                 localStorage.removeItem("token");
@@ -42,3 +28,31 @@ if (token) {
         });
     }
 }
+window.addEventListener("load", () => {
+    const navdropdown = document.getElementById("navdropdown");
+    const dropdownMenu2 = document.getElementById("dropdownMenu2");
+    const nav_item_1 = document.getElementById("nav_item_1");
+    const nav_item_2 = document.getElementById("nav_item_2");
+
+    if (token) {
+        dropdownMenu2.innerText = "Dashboard";
+        nav_item_1.innerText = "Dashboard";
+        nav_item_2.innerText = "Profile";
+
+        if (user?.role === "ADMIN") {
+            nav_item_1.href = "/admin_portal/index.html";
+            nav_item_2.href = "/admin_portal/user-profile.html";
+
+        } else {
+            nav_item_1.href = "/candidate_portal/index.html";
+            nav_item_2.href = "/candidate_portal/user-profile.html";
+        }
+    } else {
+        dropdownMenu2.innerText = "Login";
+        nav_item_1.innerText = "Login";
+        nav_item_2.innerText = "Admin";
+
+        nav_item_1.href = "/login.html";
+        nav_item_2.href = "/admin_login.html";
+    }
+});

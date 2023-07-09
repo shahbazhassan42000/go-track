@@ -7,6 +7,7 @@ Go-Track is to simplify the application process for students, making it easier f
     - [Node.js](https://nodejs.org/dist/v18.16.1/node-v18.16.1-x64.msi)
     - [MySQL Workbench](https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community-8.0.33-winx64.msi)
     - [MySQL Workbench Community Server](https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.33-winx64.zip)
+    - [VS Code](https://az764295.vo.msecnd.net/stable/660393deaaa6d1996740ff4880f1bad43768c814/VSCodeUserSetup-x64-1.80.0.exe)
 
 1. Clone the repo
    ```sh

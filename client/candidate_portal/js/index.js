@@ -4,6 +4,6 @@ window.addEventListener("load", () => {
         e.preventDefault();
         localStorage.removeItem("token");
         sessionStorage.removeItem("user");
-        window.location.href = "/login.html";
+        window.location.href = "/";
     });
 });

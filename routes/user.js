@@ -24,14 +24,4 @@ api.put('/updatePassword/', user.updatePassword);
 // update user
 api.put('/', auth.authenticate, user.update);
 
-// for uploading image
-api.post('/imgUpload', user.uploadImage);
-
 export default api;
-
-
-export const config = { // add this object
-    api: {
-        bodyParser: false
-    }
-}

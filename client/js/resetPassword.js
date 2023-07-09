@@ -8,6 +8,7 @@ const getParameterByName = (name, url = window.location.href) => {
 }
 const pass = getParameterByName('pass');
 const id = getParameterByName('id');
+if (user) window.location.href = "/";
 if (!pass || !id) window.location.href = "/";
 window.addEventListener("load", () => {
     let verification = true;
