@@ -3,6 +3,7 @@ import user from "./user.js";
 import token from "./token.js"
 import newsletter from "./newsletter.js";
 import { sendEmail } from "../utils/EmailSender.js";
+import application from "./application.js";
 
 const { Router } = express;
 const api = Router();
@@ -13,6 +14,9 @@ api.use("/user", user);
 
 //token apis
 api.use("/token", token);
+
+// application apis
+api.use("/application", application);
 
 //Newsletter apis
 api.use("/newsletter", newsletter);

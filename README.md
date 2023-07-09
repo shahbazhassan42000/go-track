@@ -19,6 +19,11 @@ Go-Track is to simplify the application process for students, making it easier f
     ```
 3. Configure .env file according to .env.example file
 
+4. Run the following command in MySQL workbench
+    ```SQL
+    CREATE DATABASE go_track;
+    ```
+
 ## Usage    
 1. Run the app
     ```sh

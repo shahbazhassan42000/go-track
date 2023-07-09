@@ -2,6 +2,17 @@ import Sequelize from 'sequelize';
 import sequelize from "../utils/db.js"
 
 const Application = sequelize.define('application', {
+    userId: {
+        type: Sequelize.INTEGER,
+        required: true,
+        allowNull: false,
+        references: {
+            model: 'users',
+            key: 'id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    },
     name: Sequelize.STRING,
     fatherName: Sequelize.STRING,
     relationship: Sequelize.STRING,
