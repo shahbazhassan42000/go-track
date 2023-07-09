@@ -20,7 +20,7 @@ export const sendEmail = (email, subject, text) => {
         from: process.env.EMAIL_USER,
         to: email,
         subject,
-        text
+        html: text
       },
       (err, info) => {
         // handle the callback

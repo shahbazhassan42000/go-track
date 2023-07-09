@@ -19,6 +19,12 @@ api.post('/', user.signup);
 // reset password
 api.post('/resetPassword', user.resetPassword);
 
+// update password
+api.put('/updatePassword/', user.updatePassword);
+
+// update user
+api.put('/', auth.authenticate, user.update);
+
 
 
 

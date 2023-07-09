@@ -21,7 +21,16 @@ const Token = sequelize.define('token', {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW,
-        expires: 3600
+    }
+}, {
+    paranoid: true, // this will add a deletedAt column and hide the row after an hour
+    hooks: {
+        beforeCreate: (token, options) => {
+            // this will set a timer to delete the token after an hour
+            setTimeout(() => {
+                token.destroy();
+            }, 3600000);
+        }
     }
 });
 

@@ -101,12 +101,12 @@ export default {
           userId: user.id
         }).then((token) => {
           if (token) {
-            const URL = `${process.env.BASE_URL}/resetPassword.html/?pass=${token.token}%id=${user.id}`;
+            const URL = `${process.env.BASE_URL}/resetPassword.html?pass=${token.token}&id=${user.id}`;
             const subject = "Reset your Go-Track Password";
             const text = reset_password_email_content(user?.name, URL);
             const email = user?.email;
-            sendEmail(email, subject, text).then(res => {
-              console.log(res);
+            sendEmail(email, subject, text).then(resp => {
+              console.log(resp);
               return res.status(200).json("Email sent successfully");
 
             }).catch(err => {
@@ -121,11 +121,70 @@ export default {
           return res.status(400).json("ERROR!!! While resetting password.");
         });
       } else {
-        return res.status(400).json("Email is not registered");
+        return res.status(404).json("Email is not registered");
       }
     }).catch(err => {
       console.log(err);
       return res.status(400).json("ERROR!!! While resetting password.");
+    }).catch(next);
+  },
+  updatePassword(req, res, next) {
+    const data = req.body.user;
+    if (!data) {
+      return res.status(400).json("must provide user object in this format {user:{...}}");
+    }
+    if (!data.id) return res.status(400).json("User ID can't be blank");
+    if (!data.password) return res.status(400).json("Password can't be blank");
+
+    User.findOne({
+      where: { id: data.id }
+    }).then((user) => {
+      if (user) {
+        user.update({
+          password: data.password
+        }).then((u) => {
+          if (u) {
+            return res.status(200).json("Password updated successfully");
+          }
+        }, err => {
+          console.log(err);
+          return res.status(400).json("ERROR!!! While updating password.");
+        });
+      } else {
+        return res.status(404).json("User not found");
+      }
+    }).catch(err => {
+      console.log(err);
+      return res.status(400).json("ERROR!!! While updating password.");
+    }).catch(next);
+  },
+  update(req, res, next) {
+    const data = req.body.user;
+    if (!data) {
+      return res.status(400).json("must provide user object in this format {user:{...}}");
+    }
+    if (!data.id) return res.status(400).json("User ID can't be blank");
+
+    User.findOne({
+      where: { id: data.id }
+    }).then((user) => {
+      if (user) {
+        // remove id and password from data
+        data.password = undefined;
+        user.update(data).then((u) => {
+          if (u) {
+            return res.status(200).json("User updated successfully");
+          }
+        }, err => {
+          console.log(err);
+          return res.status(400).json("ERROR!!! While updating user.");
+        });
+      } else {
+        return res.status(404).json("User not found");
+      }
+    }).catch(err => {
+      console.log(err);
+      return res.status(400).json("ERROR!!! While updating user.");
     }).catch(next);
   }
 };
