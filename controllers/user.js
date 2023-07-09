@@ -5,9 +5,60 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import Token from "../models/token.js";
 import crypto from "crypto";
+import formidable from "formidable";
 import { reset_password_email_content } from "../utils/index.js";
+import fsNative from "fs";
+import { UPLOAD_PATH, __dirname } from "../utils/constants.js";
 
 const { includes, keys, size } = _;
+
+const updateProfile = (files, req, res, next, data) => {
+  if (files?.image) {
+    if (!fsNative.existsSync(`${__dirname}/${UPLOAD_PATH}/`)) {
+      fsNative.mkdirSync(`${__dirname}/${UPLOAD_PATH}/`);
+    }
+    const oldpath = files.image[0].filepath;
+    const newpath = `${__dirname}/${UPLOAD_PATH}/${files.image[0].originalFilename}`;
+    fsNative.copyFile(oldpath, newpath, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Image copied successfully");
+        data.image = `/uploads/${files.image[0].originalFilename}`;
+        console.log(data);
+        fsNative.unlink(oldpath, (err) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Image deleted successfully");
+          }
+        });
+      }
+    });
+  }//files?.image
+
+  User.findOne({
+    where: { id: req.user.id }
+  }).then((user) => {
+    if (user) {
+      user.update(data).then((u) => {
+        if (u) {
+          console.log(u);
+          u.password = undefined;
+          return res.status(200).json(u);
+        }
+      }, err => {
+        console.log(err);
+        return res.status(400).json("ERROR!!! While updating user.");
+      });
+    } else {
+      return res.status(404).json("User not found");
+    }
+  }).catch(err => {
+    console.log(err);
+    return res.status(400).json("ERROR!!! While updating user.");
+  }).catch(next);
+}
 
 export default {
   login(req, res, next) {
@@ -159,32 +210,77 @@ export default {
     }).catch(next);
   },
   update(req, res, next) {
-    const data = req.body.user;
-    if (!data) {
-      return res.status(400).json("must provide user object in this format {user:{...}}");
-    }
-    if (!data.id) return res.status(400).json("User ID can't be blank");
+    const form = formidable({});
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json("ERROR!!! While updating user.");
+      }
 
-    User.findOne({
-      where: { id: data.id }
-    }).then((user) => {
-      if (user) {
-        // remove id and password from data
-        data.password = undefined;
-        user.update(data).then((u) => {
-          if (u) {
-            return res.status(200).json("User updated successfully");
+      let data = {};
+      if (fields.firstName) data.firstName = fields.firstName[0];
+      if (fields.lastName) data.lastName = fields.lastName[0];
+      if (fields.email) data.email = fields.email[0];
+      if (fields.phone) data.phone = fields.phone[0];
+      if (fields.country) data.country = fields.country[0];
+      if (fields.city) data.city = fields.city[0];
+      if (fields.education) data.education = fields.education[0];
+      if (fields.CNIC) data.CNIC = fields.CNIC[0];
+      if (fields.new_email) data.email = fields.new_email[0];
+      if (fields.password) data.password = fields.password[0];
+
+      //check if password is correct
+      if (data.password) {
+        if (fields.old_password[0] !== req.user.password) {
+          return res.status(400).json("Incorrect password");
+        }
+      }
+
+      // check if email already exist
+      console.log(data.email, req.user.email);
+      if (data.email && data.email !== req.user.email) {
+        User.findOne({
+          where: { email: data.email }
+        }).then((y) => {
+          if (y) {
+            return res.status(400).json("Email is already taken");
+          } else {
+            // files,req,res,next,data
+            updateProfile(files, req, res, next, data);
           }
-        }, err => {
+        }).catch(err => {
           console.log(err);
           return res.status(400).json("ERROR!!! While updating user.");
-        });
+        }).catch(next);
       } else {
-        return res.status(404).json("User not found");
+        updateProfile(files, req, res, next, data);
       }
-    }).catch(err => {
-      console.log(err);
-      return res.status(400).json("ERROR!!! While updating user.");
-    }).catch(next);
+    });
+  },
+  uploadImage(req, res, next) {
+    if (!fsNative.existsSync(`${__dirname}/${UPLOAD_PATH}/`)) {
+      fsNative.mkdirSync(`${__dirname}/${UPLOAD_PATH}/`);
+    }
+    const form = formidable({});
+    // form.multiples = true;
+    form.uploadDir = `${__dirname}/${UPLOAD_PATH}/`;
+    form.uploaddir = `${__dirname}/${UPLOAD_PATH}/`;
+
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json("ERROR!!! While uploading image.");
+      }
+      const file = files.file;
+      if (!file) {
+        return res.status(404).json("File not found");
+      }
+
+      console.log(file?.path);
+
+      return res.status(200).json("File uploaded successfully");
+
+
+    });
   }
 };

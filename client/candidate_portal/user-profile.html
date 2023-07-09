@@ -27,6 +27,10 @@
   <link href="vendor/dropzone.css" rel="stylesheet">
   <!-- Your custom styles -->
   <link href="css/custom.css" rel="stylesheet">
+
+  <script src="js/user-profile.js"></script>
+
+  <script src="js/index.js"></script>
 	
 </head>
 
@@ -49,7 +53,7 @@
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
           <a class="nav-link" href="submited_application.html">
             <i class="fa fa-fw fa-users"></i>
-            <span class="nav-link-text">Submited Application</span>
+            <span class="nav-link-text">Submitted Application</span>
           </a>
         </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
@@ -83,7 +87,7 @@
         <li class="breadcrumb-item">
           <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Add listing</li>
+        <li class="breadcrumb-item active">Profile</li>
       </ol>
 		<div class="box_general padding_bottom">
 			<div class="header_box version_2">
@@ -93,21 +97,25 @@
 				<div class="col-md-4">
 					<div class="form-group">
 					<label>Your photo</label>
-						<form action="/file-upload" class="dropzone"></form>
-				    </div>
+          <div id="img_placeholder_container" class="rounded">
+            <img id="img_placeholder" class="w-100 h-100 object-cover rounded" alt="upload gif" src="../images/gig-placeholder.png"/>
+          </div>
+          <input class="d-none" type="file" name="image" id="imgFile"  />
+						
+				</div>
 				</div>
 				<div class="col-md-8 add_top_30">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>First Name</label>
-								<input type="text" class="form-control" placeholder="Your First Name">
+								<input id="first_name" type="text" class="form-control" placeholder="Your First Name">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Last Name</label>
-								<input type="text" class="form-control" placeholder="Your Last Name">
+								<input id="last_name" type="text" class="form-control" placeholder="Your Last Name">
 							</div>
 						</div>
 					</div>
@@ -116,13 +124,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Email</label>
-								<input type="email" class="form-control" placeholder="Your Email">
+								<input disabled id="email" type="email" class="form-control" placeholder="Your Email">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>CNIC</label>
-								<input type="num" class="form-control" placeholder="Your CNIC">
+								<input id="CNIC" type="num" class="form-control" placeholder="Your CNIC">
 							</div>
 						</div>
 					</div>
@@ -132,19 +140,19 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Education</label>
-                  <select class="form-control " id="">\
-                    <option class="">---Select---</option>
-                      <option class="">BSC</option>
-                      <option class="">CS</option>
-                      <option class="">BBA</option>
-                      <option class="">MBA</option>
+                  <select class="form-control " id="education">\
+                    <option value="" disabled selected class="">---Select---</option>
+                      <option value="BSC" class="">BSC</option>
+                      <option value="CS" class="">CS</option>
+                      <option value="BBA" class="">BBA</option>
+                      <option value="MBA" class="">MBA</option>
                   </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label>Telephone</label>
-                <input type="num" class="form-control" placeholder="Your Telephone Number">
+                <input id="phone" type="text" class="form-control" placeholder="Your Telephone Number">
               </div>
             </div>
           </div>
@@ -154,24 +162,20 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Country</label>
-                 <select class="form-control " id="">
-                  <option class="">---Select---</option>
-                    <option class="">UK</option>
-                    <option class="">USA</option>
-                    <option class="">Pakistan</option>
-                    <option class="">India</option>
+                 <select class="form-control " id="country">
+                  <option value="" disabled  selected  class="">---Select---</option>
+                    <option value="Pakistan" class="">Pakistan</option>
                  </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label>City</label>
-                <select class="form-control " id="">
-
+                <select class="form-control " id="city">
                     <option class="">Punjab</option>
+                    <option class="">KPK</option>
+                    <option class="">Balochistan</option>
                     <option class="">Sindh</option>
-                    <option class="">Gigalt</option>
-                    <option class="">Punjab</option>
 
                  </select>
               </div>
@@ -181,7 +185,7 @@
 			</div>
 		</div>
 
-		<p><a href="#0" class="btn_1 medium">Save</a></p>
+		<p><button id="save_btn" class="btn_1 medium">Save</button></p>
 	  </div>
 	  <!-- /.container-fluid-->
    	</div>
@@ -189,7 +193,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © SPARKER 2021</small>
+          <small>Copyright © Go-Track 2023</small>
         </div>
       </div>
     </footer>
@@ -210,7 +214,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <button id="logout_btn" class="btn btn-primary">Logout</button>
           </div>
         </div>
       </div>

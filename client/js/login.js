@@ -25,7 +25,7 @@ window.addEventListener("load", () => {
                     res.json().then((data) => {
                         localStorage.setItem("token", data);
                         // candidate_portal/index.html
-                        window.location.href = "/candidate_portal/index.html";
+                        window.location.href = "/";
                     }).catch((err) => {
                         console.log(err);
                         alert("Error while login");

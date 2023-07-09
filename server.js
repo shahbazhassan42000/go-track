@@ -1,13 +1,14 @@
 import express from "express";
-import * as path from "path";
 import dotenv from "dotenv";
 import http from "http";
+import * as path from "path";
 import bodyParser from "body-parser";
 import cors from "cors";
 import morganBody from "morgan-body";
 import routes from "./routes/index.js";
 import middlewares from "./middlewares/index.js";
-const __dirname = path.resolve(path.dirname(''));
+import { __dirname } from "./utils/constants.js";
+
 
 
 dotenv.config();
@@ -27,6 +28,11 @@ app.use(
         limit: process.env.BODY_LIMIT,
     })
 );
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+)
 
 // hook morganBody to express app
 if (process.env.NODE_ENV === 'development') {
