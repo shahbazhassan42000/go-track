@@ -8,7 +8,7 @@ const User = sequelize.define('user', {
     education: Sequelize.STRING,
     phone: Sequelize.STRING,
     country: Sequelize.STRING,
-    city: Sequelize.STRING,
+    province: Sequelize.STRING,
     image: Sequelize.STRING,
     email: {
         type: Sequelize.STRING,

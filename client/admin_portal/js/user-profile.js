@@ -11,7 +11,7 @@ window.addEventListener('load', () => {
     const confirm_new_password = document.getElementById('confirm_new_password');
     const phone = document.getElementById('phone');
     const country = document.getElementById('country');
-    const city = document.getElementById('city');
+    const province = document.getElementById('province');
     const education = document.getElementById('education');
     const CNIC = document.getElementById('CNIC');
     const save_btn = document.getElementById('save_btn');
@@ -45,8 +45,8 @@ window.addEventListener('load', () => {
     if (user?.country) {
         country.value = user.country;
     }
-    if (user?.city) {
-        city.value = user.city;
+    if (user?.province) {
+        province.value = user.province;
     }
     if (user?.education) {
         education.value = user.education;
@@ -85,7 +85,7 @@ window.addEventListener('load', () => {
     const updateUser = () => {
 
         const file = imgFile?.files[0];
-        if (!first_name.value && !imgFile && file && !last_name.value && !email.value && !phone.value && !country.value && !city.value && !education.value && !CNIC.value) {
+        if (!first_name.value && !imgFile && file && !last_name.value && !email.value && !phone.value && !country.value && !province.value && !education.value && !CNIC.value) {
             alert("Please fill at least one field to update");
             return;
         }
@@ -125,8 +125,8 @@ window.addEventListener('load', () => {
         if (country.value) {
             formData.append('country', country.value);
         }
-        if (city.value) {
-            formData.append('city', city.value);
+        if (province.value) {
+            formData.append('province', province.value);
         }
         if (CNIC.value) {
             formData.append('CNIC', CNIC.value);

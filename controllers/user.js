@@ -25,7 +25,15 @@ const updateProfile = (files, req, res, next, data) => {
       } else {
         console.log("Image copied successfully");
         data.image = `/uploads/${files.image[0].originalFilename}`;
-        console.log(data);
+        User.findOne({
+          where: { id: req.user.id }
+        }).then((user) => {
+          if (user) {
+            user.update({
+              image: data.image
+            });
+          }
+        });
         fsNative.unlink(oldpath, (err) => {
           if (err) {
             console.log(err);
@@ -222,7 +230,7 @@ export default {
       if (fields.email) data.email = fields.email[0];
       if (fields.phone) data.phone = fields.phone[0];
       if (fields.country) data.country = fields.country[0];
-      if (fields.city) data.city = fields.city[0];
+      if (fields.province) data.province = fields.province[0];
       if (fields.education) data.education = fields.education[0];
       if (fields.CNIC) data.CNIC = fields.CNIC[0];
       if (fields.new_email) data.email = fields.new_email[0];

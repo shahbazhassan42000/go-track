@@ -70,102 +70,95 @@
  </div>
 </section>
 
-  <section class="ftco-section bg-light">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-12 m-auto order-md-last">
-          <div class="login-wrap p-4 p-md-5">
-              <h2 class="mb-4 text-center">Apply  Now</h2>
-              <form action="#" class="signup-form">
-
-                <div class="row">
-                   <div class="form-group col-md-4">
-                    <label class="label" for="name">Full Name</label>
-                    <input type="text" class="form-control" placeholder="">
-                </div>
-
-                 <div class="form-group col-md-4">
-                    <label class="label" for="name">Father's Name</label>
-                    <input type="text" class="form-control" placeholder="">
-                </div>
-
-                <div class="form-group col-md-4">
-                    <label class="label" for="name">Relationship </label>
-                      <select class="form-control " id="">
-                        <option class="">Parent</option>
-                        <option class="">Guardian</option>
-                      </select>
-                </div>
+<section class="ftco-section bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 m-auto order-md-last">
+        <div class="login-wrap p-4 p-md-5">
+          <h2 class="mb-4 text-center">Apply Now</h2>
+          <form class="signup-form">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label class="label" for="name">Full Name</label>
+                <input id="name" type="text" class="form-control" placeholder="">
+              </div>
+              <div class="form-group col-md-4">
+                <label class="label" for="name">Father's/Guardian's Name</label>
+                <input id="father_name" type="text" class="form-control" placeholder="">
+              </div>
+              <div class="form-group col-md-4">
+                <label class="label" for="name">Relationship </label>
+                <select id="relationship" class="form-control " id="">
+                  <option value="Parent" class="">Parent</option>
+                  <option value="Guardian" class="">Guardian</option>
+                </select>
+              </div>  
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label class="label" for="name">Father's/Guardian's CNIC</label>
+                <input id="father_CNIC" type="text" class="form-control" placeholder="xxxxx-xxxxxxx-x">
               </div>
 
-                <div class="row">
-                   <div class="form-group col-md-4">
-                    <label class="label" for="name">CNIC</label>
-                    <input type="email" class="form-control" placeholder="">
-                </div>
-
-                 <div class="form-group col-md-4">
-                    <label class="label" for="name">CNIC</label>
-                    <input type="number" class="form-control" placeholder="">
-                </div>
-
-                 <div class="form-group col-md-4">
-                    <label class="label" for="name">Student's CNIC/ B-Form </label>
-                    <input type="text" class="form-control" placeholder="11111-1111111-1">
-                </div>
+              <div class="form-group col-md-4">
+                <label class="label" for="name">Father's/Guardian's Contact</label>
+                <input id="father_phone" type="text" class="form-control" placeholder="">
               </div>
 
-                <div class="row">
-                   <div class="form-group col-md-4">
-                    <label class="label" for="name">Education</label>
-                      <select class="form-control " id="">
-                        <option class="">BSC</option>
-                        <option class="">CS</option>
-                        <option class="">BBA</option>
-                        <option class="">MBA</option>
-                      </select>
-                </div>
-
-                 <div class="form-group col-md-4">
-                    <label class="label" for="name">Student Contact</label>
-                    <input type="number" class="form-control" placeholder="">
-                </div>
-
-                 <div class="form-group col-md-4">
-                    <label class="label" for="name">Province</label>
-                    <select class="form-control " id="">
-                        <option class="">Punjab</option>
-                        <option class="">Sindh</option>
-                        <option class="">Gigalt</option>
-                        <option class="">Punjab</option>
-                      </select>
-                </div>
+              <div class="form-group col-md-4">
+                <label class="label" for="name">Student's CNIC/ B-Form </label>
+                <input id="CNIC" type="text" class="form-control" placeholder="xxxxx-xxxxxxx-x">
               </div>
-                <div class="row">
-                   <div class="form-group col-md-4">
-                    <label class="label" for="name">Date of Birth </label>
-                    <input type="date" class="form-control" placeholder="">
-                </div>
-
-                 <div class="form-group col-md-4">
-                    <label class="label" for="name">Address</label>
-                    <input type="textarea" class="form-control" placeholder="">
-                </div>
-                 <div class="form-group col-md-4">
-                    <label class="label" for="name">Email</label>
-                    <input type="email" class="form-control" placeholder="">
-                </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label class="label" for="name">Education</label>
+                  <select class="form-control " id="education">
+                    <option value="BSC" class="">BSC</option>
+                    <option value="CS" class="">CS</option>
+                    <option value="BBA" class="">BBA</option>
+                    <option value="MBA" class="">MBA</option>
+                  </select>
               </div>
-             <div class="form-group d-flex justify-content-end mt-4">
-              <a href="login.html" class="btn btn-primary submit w-100">Sumbit
-              </a>
-             </div>
-         </form>
-        <!--  <p class="text-center">Already have an account? <a href="login.html">Sign In</a></p> -->
-     </div>
- </div>
-</div>
-</div>
+                  <div class="form-group col-md-4">
+                      <label class="label" for="name">Student Contact</label>
+                      <input id="phone" type="text" class="form-control" placeholder="">
+                  </div>
+
+                  <div class="form-group col-md-4">
+                      <label class="label" for="name">Province</label>
+                      <select class="form-control " id="province">
+                      <option value="Punjab" class="">Punjab</option>
+                      <option value="KPK" class="">KPK</option>
+                      <option value="Balochistan" class="">Balochistan</option>
+                      <option value="Sindh" class="">Sindh</option>
+                  </select>
+                  </div>
+                </div>
+                  <div class="row">
+                    <div class="form-group col-md-4">
+                      <label class="label" for="name">Date of Birth </label>
+                      <input id="DOB" type="date" class="form-control" placeholder="">
+                  </div>
+
+                  <div class="form-group col-md-4">
+                      <label class="label" for="name">Address</label>
+                      <input id="address" type="textarea" class="form-control" placeholder="">
+                  </div>
+                  <div class="form-group col-md-4">
+                      <label class="label" for="name">Email</label>
+                      <input id="email" type="email" class="form-control" placeholder="">
+                  </div>
+                </div>
+              <div class="form-group d-flex justify-content-end mt-4">
+                <button id="submit_btn" class="btn btn-primary w-100">Submit
+                </button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
    <footer class="ftco-footer ftco-no-pt">
