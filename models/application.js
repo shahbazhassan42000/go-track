@@ -27,7 +27,7 @@ const Application = sequelize.define('application', {
     email: Sequelize.STRING,
     status: {
         type: Sequelize.STRING,
-        defaultValue: "pending"
+        defaultValue: "Pending"
     }
 });
 

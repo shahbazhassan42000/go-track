@@ -24,4 +24,7 @@ api.put('/updatePassword/', user.updatePassword);
 // update user
 api.put('/', auth.authenticate, user.update);
 
+// get all users
+api.get('/', auth.authenticate, auth.authorize('ADMIN'), user.getAll);
+
 export default api;

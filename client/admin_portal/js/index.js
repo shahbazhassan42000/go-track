@@ -47,4 +47,35 @@ window.addEventListener("load", () => {
         sessionStorage.removeItem("user");
         window.location.href = "/";
     });
+
+    const approve_count = document.getElementById("approve_count");
+    const reject_count = document.getElementById("reject_count");
+    const pending_count = document.getElementById("pending_count");
+
+    // get all application count group by status
+    fetch("/api/application/count", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        }
+    }).then(res => {
+        if (res.status === 200) {
+            res.json().then(data => {
+                let approve = 0, reject = 0, pending = 0;
+                data.forEach(d => {
+                    if (d.status === "Approved") {
+                        approve = d.count;
+                    } else if (d.status === "Rejected") {
+                        reject = d.count;
+                    } else if (d.status === "Pending") {
+                        pending = d.count;
+                    }
+                });
+                approve_count.innerHTML = approve;
+                reject_count.innerHTML = reject;
+                pending_count.innerHTML = pending;
+            })
+        }
+    });
 });

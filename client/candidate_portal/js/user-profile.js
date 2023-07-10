@@ -1,39 +1,3 @@
-const token = localStorage.getItem('token');
-if (!token) window.location.href = '/';
-let user = JSON.parse(localStorage.getItem('user'));
-if (user) {
-    if (user.role === "ADMIN") {
-        window.location.href = "/admin_portal/index.html";
-    }
-} else {
-    //get user by token from server
-    fetch("/api/user/getByToken", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": "Bearer " + token
-        }
-    }).then(res => {
-        if (res.status === 200) {
-            res.json().then(data => {
-                sessionStorage.setItem("user", JSON.stringify(data));
-                if (data.role === "ADMIN") {
-                    window.location.href = "/admin_portal/index.html";
-                }
-                user = data;
-            })
-        } else {
-            localStorage.removeItem("token");
-            sessionStorage.removeItem("user");
-            window.location.href = "/";
-        }
-    }
-    ).catch(err => {
-        localStorage.removeItem("token");
-        sessionStorage.removeItem("user");
-        window.location.href = "/";
-    });
-}
 window.addEventListener('load', () => {
     const imgFile = document.getElementById('imgFile');
     const first_name = document.getElementById('first_name');

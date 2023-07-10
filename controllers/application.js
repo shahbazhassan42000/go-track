@@ -31,7 +31,7 @@ export default {
             return res.status(400).json("ERROR!!! While creating application.");
         }).catch(next);
     },
-    getAll(req, res, next) {
+    getUserApplications(req, res, next) {
         Application.findAll({ userId: req.user.id }).then((applications) => {
             if (applications) {
                 return res.status(200).json(applications);
@@ -39,6 +39,61 @@ export default {
         }, err => {
             console.log(err);
             return res.status(400).json("ERROR!!! While getting applications.");
+        }).catch(next);
+    },
+    getAll(req, res, next) {
+        Application.findAll().then((applications) => {
+            if (applications) {
+                return res.status(200).json(applications);
+            }
+        }, err => {
+            console.log(err);
+            return res.status(400).json("ERROR!!! While getting applications.");
+        }).catch(next);
+    },
+    updateStatus(req, res, next) {
+        const data = req.body.application;
+        if (!data) {
+            return res.status(400).json("must provide application object in this format {application:{...}}");
+        }
+        if (!data.id) {
+            return res.status(400).json("must provide application id");
+        }
+        if (!data.status) {
+            return res.status(400).json("must provide application status");
+        }
+        Application.update({ status: data.status }, { where: { id: data.id } }).then((application) => {
+            if (application) {
+                return res.status(200).json("Application updated successfully");
+            }
+        }, err => {
+            console.log(err);
+            return res.status(400).json("ERROR!!! While updating application status.");
+        }).catch(next);
+    },
+    getCount(req, res, next) {
+        Application.findAll({
+            attributes: ['status', [Application.sequelize.fn('COUNT', Application.sequelize.col('status')), 'count']],
+            group: ['status']
+        }).then((applications) => {
+            if (applications) {
+                return res.status(200).json(applications);
+            }
+        }, err => {
+            console.log(err);
+            return res.status(400).json("ERROR!!! While getting applications count.");
+        }).catch(next);
+    },
+    getAllByStatus(req, res, next) {
+        if (!req.params.status) return res.status(400).json("must provide status");
+        if (req.params.status !== "pending" && req.params.status !== "approved" && req.params.status !== "rejected") return res.status(400).json("status must be pending, approved or rejected");
+        Application.findAll({ where: { status: req.params.status } }).then((applications) => {
+            if (applications) {
+                return res.status(200).json(applications);
+            }
+        }, err => {
+            console.log(err);
+            return res.status(400).json("ERROR!!! While getting applications by status.");
         }).catch(next);
     }
 };

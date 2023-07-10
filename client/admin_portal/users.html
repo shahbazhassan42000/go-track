@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="Ansonika">
+  <meta name="author" content="Mehreen Sohail">
   <title>Admin Dashboard</title>
   
   <!-- Favicons-->
@@ -26,6 +26,8 @@
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Your custom styles -->
   <link href="css/custom.css" rel="stylesheet">
+
+  <script src="js/index.js"></script>
   
 </head>
 
@@ -51,16 +53,16 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseMylistings">
             <li>
-              <a href="prove.html">Aprove <span class="badge badge-pill badge-primary">6</span></a>
+              <a href="/admin_portal/approve.html">Approve<span id="approve_count" class="badge count-a badge-pill badge-success">6</span></a>
             </li>
-        <li>
-              <a href="pending.html">Pending <span class="badge badge-pill badge-success">6</span></a>
+			      <li>
+              <a href="/admin_portal/pending.html">Pending <span id="pending_count" class="badge count-p badge-pill badge-warning">6</span></a>
             </li>
-      <li>
-              <a href="reject.html">Expired <span class="badge badge-pill badge-danger">6</span></a>
+			      <li>
+              <a href="/admin_portal/reject.html">Reject <span id="reject_count" class="badge count-r badge-pill badge-danger">6</span></a>
             </li>
           </ul>
-        </li>
+    </li>
   
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
           <a class="nav-link" href="users.html">
@@ -68,6 +70,12 @@
             <span class="nav-link-text">Users</span>
           </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
+          <a class="nav-link" href="user-profile.html">
+            <i class="fa fa-fw fa-plus-circle"></i>
+            <span class="nav-link-text">Profile</span>
+          </a>
+      </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -90,9 +98,9 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
+          <a href="/admin_portal/index.html">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Tables</li>
+        <li class="breadcrumb-item active">All Users</li>
       </ol>
     <!-- Example DataTables Card-->
       <div class="card mb-3">
@@ -106,104 +114,18 @@
                   <th>Name</th>
                   <th>Email</th>
                   <th>CNIC</th>
-                  <th>Age</th>
-                  <th>Location</th>
+                  <th>Education</th>
+                  <th>Province</th>
                   <th>Number</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody>
-                  <tr>
-                  <td>Noman</td>
-                  <td>Noman@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>22</td>
-                  <td>Lahore</td>
-                  <td>1471478</td>
-                  <td class=" " >
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Active</option>
-                        <option class="">Block</option>
-                        <option class="">Create</option>
-                        <option class="">Deactivate</option>
-                      </select>
-
-                  </td>
-                </tr>
-                  <tr>
-                  <td>Fasi</td>
-                  <td>fasi@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>25</td>
-                  <td>Faisalabad</td>
-                  <td>1471478</td>
-                  <td class=" " >
-                     <select class="form-control " id="" style="border:none;">
-                       <option class="">Active</option>
-                        <option class="">Block</option>
-                        <option class="">Create</option>
-                        <option class="">Deactivate</option>
-                      </select>
-
-                  </td>
-                </tr>
-                  <tr>
-                  <td>Bani</td>
-                  <td>bani@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>22</td>
-                  <td>Multan</td>
-                  <td>1471478</td>
-                 <td class=" " >
-                     <select class="form-control " id="" style="border:none;">
-                        <option class="">Active</option>
-                        <option class="">Block</option>
-                        <option class="">Create</option>
-                        <option class="">Deactivate</option>
-                      </select>
-
-                  </td>
-                </tr>
-                  <tr>
-                  <td>Zani</td>
-                  <td>zani@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                   <td>22</td>
-                  <td>Lahore</td>
-                  <td>1471478</td>
-                  <td class=" " >
-                     <select class="form-control " id="" style="border:none;">
-                        <option class="">Active</option>
-                        <option class="">Block</option>
-                        <option class="">Create</option>
-                        <option class="">Deactivate</option>
-                      </select>
-
-                  </td>
-                </tr>
-                  <tr>
-                  <td>Mani</td>
-                  <td>mani@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>22</td>
-                  <td>Islamabad</td>
-                  <td>1258852</td>
-                  <td class=" " >
-                     <select class="form-control " id="" style="border:none;">
-                        <option class="">Active</option>
-                        <option class="">Block</option>
-                        <option class="">Create</option>
-                        <option class="">Deactivate</option>
-                      </select>
-
-                  </td>
-                </tr>
-              
               </tbody>
             </table>
           </div>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        <div class="card-footer small text-muted">Updated <span id="updated_date">yesterday at 11:59 PM</span></div>
       </div>
     <!-- /tables-->
     </div>
@@ -213,7 +135,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © SPARKER 2021</small>
+          <small>Copyright © Go-Track 2023</small>
         </div>
       </div>
     </footer>
@@ -234,7 +156,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <button id="logout_btn" class="btn btn-primary">Logout</button>
           </div>
         </div>
       </div>
@@ -253,7 +175,7 @@
     <!-- Custom scripts for all pages-->
     <script src="js/admin.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/admin-datatables.js"></script>
+      <script src="js/users.js"></script>
   
 </body>
 </html>

@@ -263,5 +263,22 @@ export default {
         updateProfile(files, req, res, next, data);
       }
     });
+  },
+  getAll(req, res, next) {
+    User.findAll({
+      where: {
+        role: "CANDIDATE"
+      },
+      attributes: {
+        exclude: ['password']
+      }
+    }).then((users) => {
+      if (users) {
+        return res.status(200).json(users);
+      }
+    }, err => {
+      console.log(err);
+      return res.status(400).json("ERROR!!! While getting users.");
+    }).catch(next);
   }
 };

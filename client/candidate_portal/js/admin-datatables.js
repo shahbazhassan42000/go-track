@@ -1,5 +1,3 @@
-var token = localStorage.getItem("token");
-var user = JSON.parse(sessionStorage.getItem("user"));
 // Call the dataTables jQuery plugin
 $(document).ready(function () {
   // get user applications and add in data-table

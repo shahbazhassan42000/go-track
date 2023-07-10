@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="Ansonika">
+  <meta name="author" content="Mehreen Sohail">
   <title>Admin Dashboard</title>
 	
   <!-- Favicons-->
@@ -53,16 +53,16 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseMylistings">
             <li>
-              <a href="prove.html">Aprove<span class="badge badge-pill badge-primary">6</span></a>
+              <a href="/admin_portal/approve.html">Approve<span id="approve_count" class="badge count-a badge-pill badge-success">6</span></a>
             </li>
-			<li>
-              <a href="pending.html">Pending <span class="badge badge-pill badge-success">6</span></a>
+			      <li>
+              <a href="/admin_portal/pending.html">Pending <span id="pending_count" class="badge count-p badge-pill badge-warning">6</span></a>
             </li>
-			<li>
-              <a href="reject.html">Reject <span class="badge badge-pill badge-danger">6</span></a>
+			      <li>
+              <a href="/admin_portal/reject.html">Reject <span id="reject_count" class="badge count-r badge-pill badge-danger">6</span></a>
             </li>
           </ul>
-        </li>
+    </li>
 	
 		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
           <a class="nav-link" href="users.html">
@@ -100,14 +100,14 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
+          <a href="/admin_portal/index.html">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">My Dashboard</li>
+        <li class="breadcrumb-item active">All Applications</li>
       </ol>
 
 		      <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i> Data Table Example</div>
+          <i class="fa fa-table"></i> Candidates Applications</div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -122,147 +122,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Noman</td>
-                  <td>Noman@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>Lahore</td>
-                  <td class="">
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Recieved</option>
-                        <option class="">Pending</option>
-                        <option class="">Approved</option>
-                        <option class="">Rejected</option>
-                      </select>
-                  </td>
-                </tr>
-                  <tr>
-                  <td>2</td>
-                  <td>Noman</td>
-                  <td>Noman@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>Lahore</td>
-                  <td class=" " >
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Recieved</option>
-                        <option class="">Pending</option>
-                        <option class="">Approved</option>
-                        <option class="">Rejected</option>
-                      </select>
-                  </td>
-                </tr>
-                  <tr>
-                  <td>3</td>
-                  <td>Noman</td>
-                  <td>Noman@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>Lahore</td>
-                    <td class=" " >
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Recieved</option>
-                        <option class="">Pending</option>
-                        <option class="">Approved</option>
-                        <option class="">Rejected</option>
-                      </select>
-                  </td>
-                </tr>
-                  <tr>
-                  <td>4</td>
-                  <td>Noman</td>
-                  <td>Noman@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>Lahore</td>
-                    <td class=" " >
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Recieved</option>
-                        <option class="">Pending</option>
-                        <option class="">Approved</option>
-                        <option class="">Rejected</option>
-                      </select>
-
-                  </td>
-                </tr>
-                  <tr>
-                  <td>5</td>
-                  <td>Noman</td>
-                  <td>Noman@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>Lahore</td>
-                    <td class=" " >
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Recieved</option>
-                        <option class="">Pending</option>
-                        <option class="">Approved</option>
-                        <option class="">Rejected</option>
-                      </select>
-                  </td>
-                </tr>
-                  <tr>
-                  <td>6</td>
-                  <td>Fasi</td>
-                  <td>fasi@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>Lahore</td>
-                  <td class=" " >
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Recieved</option>
-                        <option class="">Pending</option>
-                        <option class="">Approved</option>
-                        <option class="">Rejected</option>
-                      </select>
-                  </td>
-                </tr>
-                  <tr>
-                  <td>7</td>
-                  <td>Bani</td>
-                  <td>bani@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>Lahore</td>
-                     <td class=" " >
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Recieved</option>
-                        <option class="">Pending</option>
-                        <option class="">Approved</option>
-                        <option class="">Rejected</option>
-                      </select>
-                  </td>
-                </tr>
-                  <tr>
-                  <td>8</td>
-                  <td>Zani</td>
-                  <td>zani@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                  <td>Lahore</td>
-                    <td class=" " >
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Recieved</option>
-                        <option class="">Pending</option>
-                        <option class="">Approved</option>
-                        <option class="">Rejected</option>
-                     </select>
-                  </td>
-                </tr>
-                  <tr>
-                  <td>9</td>
-                  <td>Mani</td>
-                  <td>mani@gmail.com</td>
-                  <td>35201-4145487547-4</td>
-                   <td>Lahore</td>
-                   <td class=" " >
-                     <select class="form-control" id="" style="border:none;">
-                       <option class="">Recieved</option>
-                        <option class="">Pending</option>
-                        <option class="">Approved</option>
-                        <option class="">Rejected</option>
-                     </select>
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        <div class="card-footer small text-muted">Updated <span id="updated_date">yesterday at 11:59 PM</span></div>
       </div>
 	  </div>
 	  <!-- /.container-fluid-->
@@ -271,7 +135,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © SPARKER 2021</small>
+          <small>Copyright © Go-Track 2023</small>
         </div>
       </div>
     </footer>
@@ -310,8 +174,7 @@
 	 <script src="vendor/jquery.magnific-popup.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="js/admin.js"></script>
-	<!-- Custom scripts for this page-->
-    <script src="js/admin-charts.js"></script>
+    <script src="js/main.js"></script>
 	
 </body>
 </html>
