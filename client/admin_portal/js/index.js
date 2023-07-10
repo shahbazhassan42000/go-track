@@ -48,6 +48,7 @@ window.addEventListener("load", () => {
         window.location.href = "/";
     });
 
+
     const approve_count = document.getElementById("approve_count");
     const reject_count = document.getElementById("reject_count");
     const pending_count = document.getElementById("pending_count");

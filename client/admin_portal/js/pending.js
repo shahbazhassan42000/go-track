@@ -1,7 +1,7 @@
 // Call the dataTables jQuery plugin
 $(document).ready(() => {
     // get user applications and add in data-table
-    fetch("/api/application/all/approved", {
+    fetch("/api/application/all/pending", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -15,7 +15,7 @@ $(document).ready(() => {
                     $('#dataTable tbody').append(`<tr>
                     <td>${application.name}</td>
                     <td>${application.email}</td>
-                    <td class="bg-success text-white">${application.status}</td>
+                    <td class="bg-warning text-white">${application.status}</td>
                     </tr>`);
                     // update updated date if its yesterday then yesterday time AM/PM if its today then today time AM/PM if its before yesterday then date time AM/PM
                     var date = new Date(application.updatedAt);
