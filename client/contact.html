@@ -24,6 +24,36 @@
 
 	<script src="js/home.js"></script>
 	<script src="js/aboutUs.js"></script>
+	<style type="text/css">
+.animate-charcter
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+  font-size: 35px;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+    </style>
 
 </head>
 <body>
@@ -59,12 +89,14 @@
 	<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_3.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
-			<div class="row no-gutters slider-text align-items-end justify-content-center">
-				<div class="col-md-9 ftco-animate pb-5 text-center">
-					<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Contact us <i class="fa fa-chevron-right"></i></span></p>
-					<h1 class="mb-0 bread">Contact us</h1>
-				</div>
-			</div>
+			<div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
+      <div class="col-md-7 ftco-animate">
+       
+        <h3 class="mb-4 text-white  p-3 " style="font-weight: bold;">
+           <span class="animate-charcter ">Go-TRACK</span><br>
+          <span class="animate-charcter">Welcome to our online Apply to University!</span></h3>
+    </div>
+</div>
 		</div>
 	</section>
 
@@ -116,13 +148,12 @@
 							<div class="col-lg-4 col-md-5 d-flex align-items-stretch">
 								<div class="info-wrap bg-primary w-100 p-md-5 p-4">
 									<h3>Let's get in touch</h3>
-									<p class="mb-4">We're open for any suggestion or just to have a chat</p>
 									<div class="dbox w-100 d-flex align-items-start">
 										<div class="icon d-flex align-items-center justify-content-center">
 											<span class="fa fa-map-marker"></span>
 										</div>
 										<div class="text pl-3">
-											<p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+											<p><span>Address:</span>Abu Bakar Block New Garden Town، Lahore, Punjab 54000</p>
 										</div>
 									</div>
 									<div class="dbox w-100 d-flex align-items-center">
@@ -130,7 +161,7 @@
 											<span class="fa fa-phone"></span>
 										</div>
 										<div class="text pl-3">
-											<p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+											<p><span>Phone:</span> <a href="tel://1234567920">042-8529487</a></p>
 										</div>
 									</div>
 									<div class="dbox w-100 d-flex align-items-center">
@@ -138,7 +169,7 @@
 											<span class="fa fa-paper-plane"></span>
 										</div>
 										<div class="text pl-3">
-											<p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+											<p><span>Email:</span> <a href="mailto:info@gotrack@gmail.com">gotrack@gmail.com</a></p>
 										</div>
 									</div>
 									<div class="dbox w-100 d-flex align-items-center">
@@ -146,7 +177,7 @@
 											<span class="fa fa-globe"></span>
 										</div>
 										<div class="text pl-3">
-											<p><span>Website</span> <a href="#">yoursite.com</a></p>
+											<p><span>Website</span> <a href="#">GoTrack.com</a></p>
 										</div>
 									</div>
 								</div>
