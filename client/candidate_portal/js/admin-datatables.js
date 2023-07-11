@@ -12,11 +12,26 @@ $(document).ready(function () {
       res.json().then(data => {
         // add rows if status is pending then add class bg-warning
         data.forEach((application) => {
+          let bg_class = 'bg-white text-black';
+          switch (application.status) {
+            case 'Pending':
+              bg_class = 'bg-warning text-black';
+              break;
+            case 'Approved':
+              bg_class = 'bg-success text-white';
+              break;
+            case 'Rejected':
+              bg_class = 'bg-danger text-white';
+              break;
+            default:
+              bg_class = 'bg-white text-black';
+              break;
+          }
           $('#dataTable tbody').append(`<tr>
             <td>${application.name}</td>
             <td>${application.email}</td>
             <td>${application.address}</td>
-            <td class="${application.status === "pending" && 'bg-warning'}">${application.status}</td>
+            <td class="${bg_class}">${application.status}</td>
             </tr>`);
           // update updated date if its yesterday then yesterday time AM/PM if its today then today time AM/PM if its before yesterday then date time AM/PM
           var date = new Date(application.updatedAt);

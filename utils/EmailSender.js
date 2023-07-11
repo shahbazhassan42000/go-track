@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 
 export const sendEmail = (email, subject, text) => {
+  console.log("Sending email...", email, subject, text);
   // create a new promise object
   return new Promise((resolve, reject) => {
     // create the transporter object
