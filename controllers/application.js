@@ -8,9 +8,9 @@ export default {
         }
         if (!data.name) return res.status(400).json("Name can't be blank");
         if (!data.fatherName) return res.status(400).json("Father Name can't be blank");
-        if (!data.relationship) return res.status(400).json("Relationship can't be blank");
-        if (!data.fatherCNIC) return res.status(400).json("Father CNIC can't be blank");
-        if (!data.fatherPhone) return res.status(400).json("Father Phone can't be blank");
+        if (!data.gender) return res.status(400).json("Gender can't be blank");
+        if (!data.matric) return res.status(400).json("Matric marks can't be blank");
+        if (!data.intermediate) return res.status(400).json("intermediate marks can't be blank");
         if (!data.CNIC) return res.status(400).json("CNIC can't be blank");
         if (!data.education) return res.status(400).json("Education can't be blank");
         if (!data.phone) return res.status(400).json("Phone can't be blank");
@@ -62,6 +62,7 @@ export default {
         if (!data.status) {
             return res.status(400).json("must provide application status");
         }
+        if (data.status !== "Pending" && data.status !== "Received" && data.status !== "Approved" && data.status !== "Rejected") return res.status(400).json("status must be Received, Pending, Approved or Rejected");
         Application.update({ status: data.status }, { where: { id: data.id } }).then((application) => {
             if (application) {
                 return res.status(200).json("Application updated successfully");
@@ -86,7 +87,7 @@ export default {
     },
     getAllByStatus(req, res, next) {
         if (!req.params.status) return res.status(400).json("must provide status");
-        if (req.params.status !== "pending" && req.params.status !== "approved" && req.params.status !== "rejected") return res.status(400).json("status must be pending, approved or rejected");
+        if (req.params.status !== "pending" && req.params.status !== "received" && req.params.status !== "approved" && req.params.status !== "rejected") return res.status(400).json("status must be pending, approved or rejected");
         Application.findAll({ where: { status: req.params.status } }).then((applications) => {
             if (applications) {
                 return res.status(200).json(applications);

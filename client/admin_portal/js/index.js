@@ -52,6 +52,7 @@ window.addEventListener("load", () => {
     const approve_count = document.getElementById("approve_count");
     const reject_count = document.getElementById("reject_count");
     const pending_count = document.getElementById("pending_count");
+    const received_count = document.getElementById("received_count");
 
     // get all application count group by status
     fetch("/api/application/count", {
@@ -63,7 +64,7 @@ window.addEventListener("load", () => {
     }).then(res => {
         if (res.status === 200) {
             res.json().then(data => {
-                let approve = 0, reject = 0, pending = 0;
+                let approve = 0, reject = 0, pending = 0, received = 0;
                 data.forEach(d => {
                     if (d.status === "Approved") {
                         approve = d.count;
@@ -71,11 +72,14 @@ window.addEventListener("load", () => {
                         reject = d.count;
                     } else if (d.status === "Pending") {
                         pending = d.count;
+                    } else if (d.status === "Received") {
+                        received = d.count;
                     }
                 });
                 approve_count.innerHTML = approve;
                 reject_count.innerHTML = reject;
                 pending_count.innerHTML = pending;
+                received_count.innerHTML = received;
             })
         }
     });

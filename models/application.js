@@ -15,9 +15,9 @@ const Application = sequelize.define('application', {
     },
     name: Sequelize.STRING,
     fatherName: Sequelize.STRING,
-    relationship: Sequelize.STRING,
-    fatherCNIC: Sequelize.STRING,
-    fatherPhone: Sequelize.STRING,
+    gender: Sequelize.STRING,
+    matric: Sequelize.STRING,
+    intermediate: Sequelize.STRING,
     CNIC: Sequelize.STRING,
     education: Sequelize.STRING,
     phone: Sequelize.STRING,
@@ -27,7 +27,7 @@ const Application = sequelize.define('application', {
     email: Sequelize.STRING,
     status: {
         type: Sequelize.STRING,
-        defaultValue: "Pending"
+        defaultValue: "Received"
     }
 });
 

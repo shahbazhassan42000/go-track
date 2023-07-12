@@ -31,7 +31,7 @@ window.addEventListener("load", () => {
                         alert("Error while login");
                     });
                 }
-                else if (res.status === 400) {
+                else if (res.status === 400 || res.status == 403) {
                     res.json().then((data) => {
                         alert(data);
                     }).catch((err) => {

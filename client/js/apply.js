@@ -4,9 +4,9 @@ window.addEventListener("load", () => {
     const submit_btn = document.getElementById("submit_btn");
     const name = document.getElementById("name");
     const father_name = document.getElementById("father_name");
-    const relationship = document.getElementById("relationship");
-    const father_CNIC = document.getElementById("father_CNIC");
-    const father_phone = document.getElementById("father_phone");
+    const gender = document.getElementById("gender");
+    const matric = document.getElementById("matric");
+    const intermediate = document.getElementById("intermediate");
     const CNIC = document.getElementById("CNIC");
     const education = document.getElementById("education");
     const phone = document.getElementById("phone");
@@ -29,9 +29,9 @@ window.addEventListener("load", () => {
         if (
             !name.value ||
             !father_name.value ||
-            !relationship.value ||
-            !father_CNIC.value ||
-            !father_phone.value ||
+            !gender.value ||
+            !matric.value ||
+            !intermediate.value ||
             !CNIC.value ||
             !education.value ||
             !phone.value ||
@@ -44,8 +44,40 @@ window.addEventListener("load", () => {
             return;
         }
 
-        const application = {}
+        const application = {
+            name: name.value,
+            fatherName: father_name.value,
+            gender: gender.value,
+            matric: matric.value,
+            intermediate: intermediate.value,
+            CNIC: CNIC.value,
+            education: education.value,
+            phone: phone.value,
+            province: province.value,
+            DOB: DOB.value,
+            address: address.value,
+            email: email.value,
+        };
 
+        // send application to server
+        fetch("/api/application", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({ application }),
+        }).then((res) => {
+            if (res.status === 200) {
+                alert("Application submitted successfully");
+                window.location.href = "/apply.html";
+            } else {
+                alert("Error while submitting application");
+            }
+        }).catch((err) => {
+            console.log(err);
+            alert("Error while submitting application");
+        });x
     });
 
 });

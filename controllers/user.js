@@ -3,6 +3,7 @@ import role from "../utils/role.js";
 import { sendEmail } from "../utils/EmailSender.js";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import Application from "../models/application.js";
 import Token from "../models/token.js";
 import crypto from "crypto";
 import formidable from "formidable";
@@ -86,6 +87,7 @@ export default {
       }
     }).then((user) => {
       if (user) {
+        if (user.status === "Block") return res.status(403).json("Your account is blocked by admin, Please contact admin for more details.");
         // generate JWT token
         let expiryDate = new Date();
         expiryDate.setDate(expiryDate.getDate() + 60);
@@ -263,6 +265,46 @@ export default {
         updateProfile(files, req, res, next, data);
       }
     });
+  },
+  updateStatus(req, res, next) {
+    const data = req.body.user;
+    if (!data) {
+      return res.status(400).json("must provide user object in this format {user:{...}}");
+    }
+    if (!data.id) return res.status(400).json("User ID can't be blank");
+    if (!data.status) return res.status(400).json("Status can't be blank");
+    if (!includes(['Active', 'Block'], data.status)) return res.status(400).json("Invalid status, status must be Active or Block");
+    User.findOne({
+      where: { id: data.id }
+    }).then((user) => {
+      if (user) {
+        if (user.status === data.status) return res.status(200).json("Status updated successfully");
+        user.update({
+          status: data.status
+        }).then(u => {
+          if (u) {
+            Application.update({
+              status: data.status === "Block" ? "Rejected" : "Received"
+            }, {
+              where: {
+                userId: data.id
+              }
+            }).then((apps) => {
+              if (apps) {
+                return res.status(200).json("Status updated successfully");
+              }
+            }, err => {
+              console.log(err);
+              return res.status(400).json("ERROR!!! While updating status.");
+            }).catch(next);
+          } else {
+            return res.status(404).json("User not found");
+          }
+        })
+      } else {
+        return res.status(404).json("User not found");
+      }
+    }).catch(next);
   },
   getAll(req, res, next) {
     User.findAll({

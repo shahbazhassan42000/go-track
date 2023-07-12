@@ -14,6 +14,9 @@ $(document).ready(function () {
         data.forEach((application) => {
           let bg_class = 'bg-white text-black';
           switch (application.status) {
+            case 'Received':
+              bg_class = 'bg-info text-white';
+              break;
             case 'Pending':
               bg_class = 'bg-warning text-black';
               break;

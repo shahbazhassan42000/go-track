@@ -14,7 +14,9 @@
 .object-cover{
     object-fit: cover;
 }
-
+.count-rd{
+    margin-left: 6px;
+}
 .count-p{
     margin-left: 9px;
 }

@@ -14,6 +14,9 @@ $(document).ready(function () {
                 data.forEach((application) => {
                     let bg_class = 'bg-white text-black';
                     switch (application.status) {
+                        case 'Received':
+                            bg_class = 'bg-info text-white';
+                            break;
                         case 'Pending':
                             bg_class = 'bg-warning text-black';
                             break;
@@ -34,6 +37,7 @@ $(document).ready(function () {
                     <td>${application.CNIC}</td>
                     <td>${application.address}</td>
                     <td class="${bg_class}"><select class="application-status ${bg_class}" style="border:none; outline: none;" data-id="${application.id}">
+                    <option value="Received" ${application.status === "Received" && 'selected'}>Received</option>
                     <option value="Pending" ${application.status === "Pending" && 'selected'}>Pending</option>
                     <option value="Approved" ${application.status === "Approved" && 'selected'}>Approved</option>
                     <option value="Rejected" ${application.status === "Rejected" && 'selected'}>Rejected</option>
@@ -59,6 +63,7 @@ $(document).ready(function () {
 
                 // Add the change event handler here
                 $('.application-status').change(function () {
+                    console.log($(this));
                     // Get the selected value
                     const status = $(this).val();
                     // Get the data-id attribute
