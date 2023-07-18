@@ -1,3 +1,33 @@
+// check if token exists in local storage
+const token = localStorage.getItem("token");
+if (token) {
+    var user = JSON.parse(sessionStorage.getItem("user"));
+    if (!user) {
+        //get user by token from server
+        fetch("/api/user/getByToken", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + token
+            }
+        }).then(res => {
+            if (res.status === 200) {
+                res.json().then(data => {
+                    sessionStorage.setItem("user", JSON.stringify(data));
+                })
+            } else {
+                localStorage.removeItem("token");
+                sessionStorage.removeItem("user");
+                window.location.href = "/";
+            }
+        }
+        ).catch(err => {
+            localStorage.removeItem("token");
+            sessionStorage.removeItem("user");
+            window.location.href = "/";
+        });
+    }
+}
 const getParameterByName = (name, url = window.location.href) => {
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -8,7 +38,6 @@ const getParameterByName = (name, url = window.location.href) => {
 }
 const pass = getParameterByName('pass');
 const id = getParameterByName('id');
-if (user) window.location.href = "/";
 if (!pass || !id) window.location.href = "/";
 window.addEventListener("load", () => {
     let verification = true;

@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
         }).then(res => {
             if (res.status === 200) {
                 alert("Reset password link has been sent to your email");
-            } else if (res.status === 400) {
+            } else if (res.status === 404) {
                 alert("Email is not registered");
             } else {
                 alert("ERROR!!! While resetting password, Please try again later.");
