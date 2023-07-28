@@ -26,7 +26,7 @@ const User = sequelize.define('user', {
     },
     status: {
         type: Sequelize.STRING,
-        defaultValue: "Active"
+        defaultValue: "Unverified"
     }
 });
 

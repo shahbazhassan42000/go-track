@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import Application from "../models/application.js";
+
 export default {
     create(req, res, next) {
         const data = req.body.application;
@@ -32,8 +33,11 @@ export default {
         }).catch(next);
     },
     getUserApplications(req, res, next) {
-        Application.findAll({ userId: req.user.id }).then((applications) => {
+        console.log("Getting user applications...");
+        console.log(req.user);
+        Application.findAll({ where: { userId: req.user.id } }).then((applications) => {
             if (applications) {
+                console.log(applications);
                 return res.status(200).json(applications);
             }
         }, err => {

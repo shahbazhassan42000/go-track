@@ -21,6 +21,7 @@ export default {
         } else {
           console.log("user found");
           req.user = user;
+          console.log(req.user);
           return next();
         }
       }).catch(err => {

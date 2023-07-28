@@ -7,9 +7,9 @@ import Application from "../models/application.js";
 import Token from "../models/token.js";
 import crypto from "crypto";
 import formidable from "formidable";
-import { reset_password_email_content } from "../utils/index.js";
+import { reset_password_email_content, verify_email_content } from "../utils/index.js";
 import fsNative from "fs";
-import { UPLOAD_PATH, __dirname } from "../utils/constants.js";
+import { UPLOAD_PATH, __dirname, emailRegex, password_regex } from "../utils/constants.js";
 
 const { includes, keys, size } = _;
 
@@ -71,7 +71,6 @@ const updateProfile = (files, req, res, next, data) => {
 
 export default {
   login(req, res, next) {
-
     const user = req.body.user;
     if (!user) {
       return res.status(400).json("must provide user object in this format {user:{...}}");
@@ -88,16 +87,43 @@ export default {
     }).then((user) => {
       if (user) {
         if (user.status === "Block") return res.status(403).json("Your account is blocked by admin, Please contact admin for more details.");
-        // generate JWT token
-        let expiryDate = new Date();
-        expiryDate.setDate(expiryDate.getDate() + 60);
-        const token = jwt.sign({
-          email: user.email,
-          role: user.role,
-          id: user.id,
-          expiryDate: parseInt(expiryDate.getTime() / 1000)
-        }, process.env.SECRET_KEY);
-        return res.status(200).json(token);
+        if (user.status === "Unverified") {
+          Token.create({
+            token: crypto.randomBytes(16).toString('hex'),
+            userId: user.id
+          }).then((token) => {
+            if (token) {
+              const URL = `${process.env.BASE_URL}/verifyEmail.html?pass=${token.token}&id=${user.id}`;
+              const subject = "Email Verification";
+              const text = verify_email_content(user?.name, URL);
+              const email = user?.email;
+              sendEmail(email, subject, text).then(resp => {
+                console.log(resp);
+                console.log("Verification Email sent successfully");
+                return res.status(403).json("Your account is not verified, Please check your email box.");
+              }).catch(err => {
+                console.log(err);
+                return res.status(400).json("ERROR!!! While creating password.");
+              })
+            } else {
+              return res.status(400).json("ERROR!!! While creating password.");
+            }
+          }, err => {
+            console.log(err);
+            return res.status(400).json("ERROR!!! While creating password.");
+          });
+        } else {
+          // generate JWT token
+          let expiryDate = new Date();
+          expiryDate.setDate(expiryDate.getDate() + 60);
+          const token = jwt.sign({
+            email: user.email,
+            role: user.role,
+            id: user.id,
+            expiryDate: parseInt(expiryDate.getTime() / 1000)
+          }, process.env.SECRET_KEY);
+          return res.status(200).json(token);
+        }
       } else {
         return res.status(400).json("Invalid username or password");
       }
@@ -116,6 +142,8 @@ export default {
     if (!user.password) return res.status(400).json("Password can't be blank");
     if (!user.role) return res.status(400).json("Role can't be blank");
     if (!includes(role, user.role)) return res.status(400).json("Invalid role");
+    if (!emailRegex.test(user.email)) return res.status(400).json("Invalid email");
+    if (!password_regex.test(user.password)) return res.status(400).json("Password must contain one upper case letter and one lower case letter and 8 characters long");
 
     // check if email already exist
     User.findOne({
@@ -126,7 +154,31 @@ export default {
       } else {
         User.create(user).then((user) => {
           if (user) {
-            return res.status(200).json(user);
+            //create Token and send email
+            Token.create({
+              token: crypto.randomBytes(16).toString('hex'),
+              userId: user.id
+            }).then((token) => {
+              if (token) {
+                const URL = `${process.env.BASE_URL}/verifyEmail.html?pass=${token.token}&id=${user.id}`;
+                const subject = "Email Verification";
+                const text = verify_email_content(user?.name, URL);
+                const email = user?.email;
+                sendEmail(email, subject, text).then(resp => {
+                  console.log(resp);
+                  console.log("Verification Email sent successfully");
+                  return res.status(200).json(user);
+                }).catch(err => {
+                  console.log(err);
+                  return res.status(400).json("ERROR!!! While creating password.");
+                })
+              } else {
+                return res.status(400).json("ERROR!!! While creating password.");
+              }
+            }, err => {
+              console.log(err);
+              return res.status(400).json("ERROR!!! While creating password.");
+            });
           }
         }, err => {
           console.log(err);
@@ -142,6 +194,7 @@ export default {
     console.log("Getting user by token");
     const user = req.user;
     user.password = undefined;
+    console.log(user);
     return res.status(200).json(user);
   },
   resetPassword(req, res, next) {

@@ -14,6 +14,7 @@ if (token) {
             if (res.status === 200) {
                 res.json().then(data => {
                     sessionStorage.setItem("user", JSON.stringify(data));
+                    console.log(res, data);
                 })
             } else {
                 localStorage.removeItem("token");

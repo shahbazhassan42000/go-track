@@ -24,6 +24,7 @@ window.addEventListener("load", () => {
                 if (res.status === 200) {
                     res.json().then((data) => {
                         localStorage.setItem("token", data);
+                         console.log(res,data);
                         // candidate_portal/index.html
                         window.location.href = "/";
                     }).catch((err) => {
@@ -45,6 +46,7 @@ window.addEventListener("load", () => {
             }).finally(() => {
                 //clear console
                 console.clear();
+
             });
         }
     });

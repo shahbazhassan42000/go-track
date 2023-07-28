@@ -9,6 +9,7 @@ const api = Router();
 
 //get token by id
 api.post('/verification', token.getByID);
+api.post('/emailVerification', token.verifyEmail);
 
 
 export default api;
