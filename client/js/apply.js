@@ -1,5 +1,5 @@
-if (!user) window.location.href = "/";
-if (user?.role === "ADMIN") window.location.href = "/";
+//if (!user) window.location.href = "/";
+//if (user?.role === "ADMIN") window.location.href = "/";
 window.addEventListener("load", () => {
     const submit_btn = document.getElementById("submit_btn");
     const name = document.getElementById("name");
