@@ -13,9 +13,14 @@ window.addEventListener('load', () => {
     const img_placeholder = document.getElementById('img_placeholder');
     let img_placeholder_link = "../images/gig-placeholder.png";
     const img_placeholder_hover_link = "../images/gig-placeholder-hover.png";
+    // Validations regex
+    const CNIC_regex = /^[0-9]{5}-[0-9]{7}-[0-9]{1}$/;
+    // phone: +92335-4058294
+    const phone_regex = /^\+923[0-9]{2}-[0-9]{7}$/;
 
     // set user data
     if (user?.image) {
+        console.log("setting user image");
         img_placeholder_link = user.image;
         img_placeholder.src = img_placeholder_link;
     }
@@ -45,7 +50,6 @@ window.addEventListener('load', () => {
         CNIC.value = user.CNIC;
     }
 
-
     img_placeholder_container.addEventListener('mouseover', () => {
         img_placeholder.src = img_placeholder_hover_link;
     });
@@ -57,6 +61,7 @@ window.addEventListener('load', () => {
     });
 
     imgFile.addEventListener('change', () => {
+        console.log("image file changed");
         const file = imgFile.files[0];
         if (file) {
             const reader = new FileReader();
@@ -75,7 +80,17 @@ window.addEventListener('load', () => {
 
         const file = imgFile?.files[0];
         if (!first_name.value && !imgFile && file && !last_name.value && !email.value && !phone.value && !country.value && !province.value && !education.value && !CNIC.value) {
-            alert("Please fill at least one field to update");
+            swal.fire("Error!!!", "Please fill at least one field to update", "error")
+            return;
+        }
+        // CNIC validation
+        if (CNIC.value.trim() !== "" && !CNIC_regex.test(CNIC.value)) {
+            swal.fire("ERROR!!!!", "Invalid CNIC, it should be like: xxxxx-xxxxxxx-x", "error");
+            return;
+        }
+        // Phone number validation
+        if (phone.value.trim() !== "" && !phone_regex.test(phone.value)) {
+            swal.fire("ERROR!!!", "Invalid No., it should be like: +923xx-xxxxxxx", "error");
             return;
         }
         const formData = new FormData();
@@ -116,20 +131,20 @@ window.addEventListener('load', () => {
         }).then(res => {
             if (res.status === 200) {
                 res.json().then(data => {
-                    sessionStorage.setItem("user", JSON.stringify(data));
-                    alert("User updated successfully");
+                    sessionStorage.setItem("user", null);
+                    swal.fire("Success!!!", "User updated successfully", "success");
                     window.location.href = "/candidate_portal/user-profile.html";
                 })
             } else if (res.status === 400 || res.status === 404) {
                 res.json().then(data => {
-                    alert(data);
+                    swal.fire("Error!!!", data, "error");
                 })
             } else {
-                alert("ERROR!!! While updating user, Please try again later.");
+                swal.fire("Error!!!", "While updating user, Please try again later.", "error")
             }
         }).catch(err => {
             console.log(err)
-            alert("ERROR!!! While updating user, Please try again later.");
+            swal.fire("Error!!!", "While updating user, Please try again later.", "error")
         });
 
     }//end of UPDATE USER method

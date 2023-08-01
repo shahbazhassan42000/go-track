@@ -23,6 +23,7 @@ const { errorHandler } = middlewares.errorHandler;
 app.use(cors());
 
 
+console.log("setting body limit: ", process.env.BODY_LIMIT);
 app.use(
     bodyParser.json({
         limit: process.env.BODY_LIMIT,

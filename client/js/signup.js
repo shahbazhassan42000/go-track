@@ -13,24 +13,19 @@ window.addEventListener("load", () => {
     register_btn.addEventListener("click", (e) => {
         e.preventDefault();
         if (name.value === "" || email.value === "" || pwd.value === "" || confirm_password.value === "") {
-            alert("Please fill all fields");
+            swal.fire("ERROR!!!", "Please fill all fields", "error");
         }
         //email check
         else if (!emailRegex.test(email.value)) {
-            alert("Please enter valid email");
+            swal.fire("ERROR!!!", "Please enter valid email", "error");
         }
         // check if password contains one upper case letter and one lower case letter and 8 characters long
         else if (!password_regex.test(pwd.value)) {
-            alert("Password must contain one upper case letter and one lower case letter and 8 characters long");
+            swal.fire("ERROR!!!", "Password must contain one upper case letter, one lower case letter and 8 characters long", "error");
         }
         else if (pwd.value !== confirm_password.value) {
-            alert("Password does not match");
+            swal.fire("ERROR!!!", "Password and confirm password must be same", "error");
         } else {
-            const data = {
-                name: name.value,
-                email: email.value,
-                password: pwd.value
-            }
             fetch("/api/user/", {
                 method: "POST",
                 headers: {
@@ -46,22 +41,22 @@ window.addEventListener("load", () => {
                 }),
             }).then(response => {
                 if (response.status === 200) {
-                    alert("An Email has been sent to your email address. Please verify your email address to complete the signup process.");
+                    swal.fire("SUCCESS!!!", "An Email has been sent to your email address. Please verify your email address to complete the signup process.", "success");
                     window.location.href = "/login.html";
                 }
                 else if (response.status === 400) {
                     response.json().then(data => {
-                        alert(data);
+                        swal.fire("ERROR!!!", data, "error");
 
                     }).catch(err => {
-                        alert("Register failed, Please try again later!");
+                        swal.fire("ERROR!!!", "Registration failed, Please try again later!", "error")
                     })
                 }
                 else {
-                    alert("Register failed, Please try again later!");
+                    swal.fire("ERROR!!!", "Registration failed, Please try again later!", "error")
                 }
             }).catch(err => {
-                alert("Register failed, Please try again later!");
+                swal.fire("ERROR!!!", "Registration failed, Please try again later!", "error")
             }).finally(() => {
                 //clear console
                 console.clear();

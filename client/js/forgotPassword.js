@@ -4,7 +4,7 @@ window.addEventListener("load", () => {
     reset_btn.addEventListener("click", (e) => {
         e.preventDefault();
         if (!email.value) {
-            alert("Email can't be blank");
+            swal.fire("ERROR!!!", "Email can't be blank", "error");
             return;
         }
         fetch('/api/user/resetPassword', {
@@ -19,15 +19,15 @@ window.addEventListener("load", () => {
             })
         }).then(res => {
             if (res.status === 200) {
-                alert("Reset password link has been sent to your email");
+                swal.fire("SUCCESS!!!", "Reset password link has been sent to your email", "success");
             } else if (res.status === 404) {
-                alert("Email is not registered");
+                swal.fire("ERROR!!!", "Email is not registered", "error");
             } else {
-                alert("ERROR!!! While resetting password, Please try again later.");
+                swal.fire("ERROR!!!", "While resetting password, Please try again later.", "error");
             }
         }).catch(err => {
             console.log(err);
-            alert("ERROR!!! While resetting password, Please try again later.");
+            swal.fire("ERROR!!!", "While resetting password, Please try again later.", "error");
         });
     });
 });

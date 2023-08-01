@@ -32,6 +32,7 @@ const User = sequelize.define('user', {
 
 // Define a hook function that runs after the model is synchronized with the database
 const addDefaultAdmin = async (options) => {
+    console.log("adding default ADMIN....");
     // Check if there is any user with the role of 'admin' in the table
     const adminCount = await User.count({ where: { role: 'ADMIN' } });
     // If not, create one with some default values
@@ -45,7 +46,14 @@ const addDefaultAdmin = async (options) => {
     }
 };
 
+sequelize.sync().then(() => {
+    console.log('Tables created successfully!');
+}).catch((error) => {
+    console.error('Unable to create tables : ', error);
+});
+
 // Add the hook function to the user model
 User.afterSync(addDefaultAdmin);
+
 
 export default User;

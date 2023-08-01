@@ -1,36 +1,124 @@
 import User from "../models/user.js";
 import Application from "../models/application.js";
+import formidable from "formidable";
+import fsNative from "fs";
+import { UPLOAD_PATH, __dirname } from "../utils/constants.js";
 
 export default {
     create(req, res, next) {
-        const data = req.body.application;
-        if (!data) {
-            return res.status(400).json("must provide application object in this format {application:{...}}");
-        }
-        if (!data.name) return res.status(400).json("Name can't be blank");
-        if (!data.fatherName) return res.status(400).json("Father Name can't be blank");
-        if (!data.gender) return res.status(400).json("Gender can't be blank");
-        if (!data.matric) return res.status(400).json("Matric marks can't be blank");
-        if (!data.intermediate) return res.status(400).json("intermediate marks can't be blank");
-        if (!data.CNIC) return res.status(400).json("CNIC can't be blank");
-        if (!data.education) return res.status(400).json("Education can't be blank");
-        if (!data.phone) return res.status(400).json("Phone can't be blank");
-        if (!data.province) return res.status(400).json("Province can't be blank");
-        if (!data.DOB) return res.status(400).json("Date of birth can't be blank");
-        if (!data.address) return res.status(400).json("Address can't be blank");
-        if (!data.email) return res.status(400).json("Email can't be blank");
-
-        //set user ID
-        data.userId = req.user.id;
-
-        Application.create(data).then((application) => {
-            if (application) {
-                return res.status(200).json(application);
+        const form = formidable({});
+        form.parse(req, (err, fields, files) => {
+            if (err) {
+                console.log(err);
+                return res.status(400).json("ERROR!!! While submitting application.");
             }
-        }, err => {
-            console.log(err);
-            return res.status(400).json("ERROR!!! While creating application.");
-        }).catch(next);
+
+            let data = {}; //name, father_name, father_CNIC, CNIC, DOB, phone, city, email, last_exam, passing_year, board, total_marks, roll_no, institute,stud_pic, CNIC_DOC, result_DOC
+            if (!fields.name) return res.status(400).json("Name can't be blank");
+            else data.name = fields.name[0];
+            if (!fields.father_name) return res.status(400).json("Father Name can't be blank");
+            else data.father_name = fields.father_name[0];
+            if (!fields.father_CNIC) return res.status(400).json("Father CNIC can't be blank");
+            else data.father_CNIC = fields.father_CNIC[0];
+            if (!fields.CNIC) return res.status(400).json("CNIC can't be blank");
+            else data.CNIC = fields.CNIC[0];
+            if (!fields.DOB) return res.status(400).json("Date of birth can't be blank");
+            else data.DOB = fields.DOB[0];
+            if (!fields.phone) return res.status(400).json("Phone can't be blank");
+            else data.phone = fields.phone[0];
+            if (!fields.city) return res.status(400).json("City can't be blank");
+            else data.city = fields.city[0];
+            if (!fields.email) return res.status(400).json("Email can't be blank");
+            else data.email = fields.email[0];
+            if (!fields.last_exam) return res.status(400).json("Last exam can't be blank");
+            else data.last_exam = fields.last_exam[0];
+            if (!fields.passing_year) return res.status(400).json("Passing year can't be blank");
+            else data.passing_year = fields.passing_year[0];
+            if (!fields.board) return res.status(400).json("Board can't be blank");
+            else data.board = fields.board[0];
+            if (!fields.total_marks) return res.status(400).json("Total marks can't be blank");
+            else data.total_marks = fields.total_marks[0];
+            if (!fields.roll_no) return res.status(400).json("Roll no can't be blank");
+            else data.roll_no = fields.roll_no[0];
+            if (!fields.institute) return res.status(400).json("Institute can't be blank");
+            else data.institute = fields.institute[0];
+
+            // console.log(files);
+            // console.log(files.stud_pic);
+            // if (files?.stud_pic) return res.status(400).json("Student picture can't be blank");
+            // if (files?.CNIC_DOC) return res.status(400).json("CNIC document can't be blank");
+            // if (files?.result_DOC) return res.status(400).json("Result document can't be blank");
+
+            data.userId = req.user.id; //set user ID
+            //saving files
+            if (!fsNative.existsSync(`${__dirname}/${UPLOAD_PATH}/`)) {
+                fsNative.mkdirSync(`${__dirname}/${UPLOAD_PATH}/`);
+            }
+            // Student picture saving
+            const oldpath = files.stud_pic[0].filepath;
+            const newpath = `${__dirname}/${UPLOAD_PATH}/${files.stud_pic[0].originalFilename}`;
+            fsNative.copyFile(oldpath, newpath, (err) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Student Picture copied successfully");
+                    data.stud_pic = `/uploads/${files.stud_pic[0].originalFilename}`;
+                    fsNative.unlink(oldpath, (err) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("Student Picture deleted successfully");
+                        }
+                    });
+                    //CNIC DOC saving
+                    const oldpath2 = files.CNIC_DOC[0].filepath;
+                    const newpath2 = `${__dirname}/${UPLOAD_PATH}/${files.CNIC_DOC[0].originalFilename}`;
+                    fsNative.copyFile(oldpath2, newpath2, (err) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("CNIC DOC copied successfully");
+                            data.CNIC_DOC = `/uploads/${files.CNIC_DOC[0].originalFilename}`;
+                            fsNative.unlink(oldpath2, (err) => {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    console.log("CNIC DOC deleted successfully");
+                                }
+                            });
+                            //Result DOC saving
+                            const oldpath3 = files.result_DOC[0].filepath;
+                            const newpath3 = `${__dirname}/${UPLOAD_PATH}/${files.result_DOC[0].originalFilename}`;
+                            fsNative.copyFile(oldpath3, newpath3, (err) => {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    console.log("Result DOC copied successfully");
+                                    data.result_DOC = `/uploads/${files.result_DOC[0].originalFilename}`;
+                                    fsNative.unlink(oldpath3, (err) => {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
+                                            console.log("Result DOC deleted successfully");
+                                        }
+                                    });
+                                    //creating application
+                                    console.log("files saved successfully", data);
+                                    Application.create(data).then((application) => {
+                                        if (application) {
+                                            return res.status(200).json(application);
+                                        }
+                                    }, err => {
+                                        console.log(err);
+                                        return res.status(400).json("ERROR!!! While creating application.");
+                                    }).catch(next);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });//end of form parse
     },
     getUserApplications(req, res, next) {
         console.log("Getting user applications...");

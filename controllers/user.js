@@ -272,6 +272,7 @@ export default {
     }).catch(next);
   },
   update(req, res, next) {
+    console.log("update profile...");
     const form = formidable({});
     form.parse(req, (err, fields, files) => {
       if (err) {

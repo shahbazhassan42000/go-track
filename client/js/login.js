@@ -8,7 +8,7 @@ window.addEventListener("load", () => {
     login_btn.addEventListener("click", (e) => {
         e.preventDefault();
         if (email.value === "" || password.value === "") {
-            alert("Please fill all fields");
+            swal.fire("Error!!!", "Please fill all fields", "error");
         } else {
             const user = {
                 email: email.value,
@@ -24,25 +24,26 @@ window.addEventListener("load", () => {
                 if (res.status === 200) {
                     res.json().then((data) => {
                         localStorage.setItem("token", data);
-                         console.log(res,data);
+                        console.log(res, data);
                         // candidate_portal/index.html
+                        swal.fire("Success!!!", "Login Successful", "success");
                         window.location.href = "/";
                     }).catch((err) => {
                         console.log(err);
-                        alert("Error while login");
+                        swal.fire("Error!!!", "Error while login", "error");
                     });
                 }
                 else if (res.status === 400 || res.status == 403) {
                     res.json().then((data) => {
-                        alert(data);
+                        swal.fire("Error!!!", data, "error");
                     }).catch((err) => {
                         console.log(err);
-                        alert("Error while login");
+                        swal.fire("Error!!!", "Error while login", "error");
                     });
                 }
             }).catch((err) => {
                 console.log(err);
-                alert("Error while login");
+                swal.fire("Error!!!", "Error while login", "error");
             }).finally(() => {
                 //clear console
                 console.clear();

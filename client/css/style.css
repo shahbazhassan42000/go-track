@@ -46,6 +46,12 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
+.error{
+  position: absolute;
+  font-size: 0.7rem;
+  left:0;
+}
+  
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
