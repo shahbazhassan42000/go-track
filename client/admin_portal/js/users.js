@@ -89,10 +89,10 @@ $(document).ready(function () {
 
             }); // END OF res.json()
         } else {
-            alert("ERROR!!! While getting users.");
+            swal.fire("Error!!!", "While getting users.", "error");
         }
     }).catch(err => {
-        alert("ERROR!!! While getting users.");
+        swal.fire("Error!!!", "While getting users.", "error");
     });
 
 

@@ -78,7 +78,7 @@ window.addEventListener("load", () => {
         }
         reset_btn.addEventListener("click", () => {
             if (!password.value) {
-                alert("Password can't be blank");
+                swal.fire("ERROR!!!", "Password can't be blank", "error");
                 return;
             }
 
@@ -95,14 +95,14 @@ window.addEventListener("load", () => {
                 })
             }).then(res => {
                 if (res.status === 200) {
-                    alert("Password updated successfully");
+                    swal.fire("SUCCESS!!!", "Password updated successfully", "success");
                     window.location.href = "/login.html";
                 } else {
-                    alert("ERROR!!! While updating password.");
+                    swal.fire("ERROR!!!", "While updating password.", "error");
                 }
             }).catch(err => {
                 console.log(err);
-                alert("ERROR!!! While updating password.");
+                swal.fire("ERROR!!!", "While updating password.", "error");
             });
         });
     });

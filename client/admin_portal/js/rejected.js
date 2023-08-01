@@ -15,6 +15,7 @@ $(document).ready(() => {
                     $('#dataTable tbody').append(`<tr>
                     <td>${application.name}</td>
                     <td>${application.email}</td>
+                    <td><a class="btn btn-primary view-btn" href="/admin_portal/view.html?id=${application.id}">View</a></td>
                     <td class="bg-danger text-white">${application.status}</td>
                     </tr>`);
                     // update updated date if its yesterday then yesterday time AM/PM if its today then today time AM/PM if its before yesterday then date time AM/PM
@@ -37,10 +38,10 @@ $(document).ready(() => {
 
             }); // END OF res.json()
         } else {
-            alert("ERROR!!! While getting applications.");
+            swal.fire("Error!!!", "While getting applications.", "error");
         }
     }).catch(err => {
-        alert("ERROR!!! While getting applications.");
+        swal.fire("Error!!!", "While getting applications.", "error");
     });
 
 

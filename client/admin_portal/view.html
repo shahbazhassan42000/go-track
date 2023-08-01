@@ -1,4 +1,3 @@
-N      
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,11 +7,11 @@ N
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="Mehreen Sohail">
-  <title>Admin Dashboard</title>
-  
+<title>Admin Dashboard</title>
+	
   <!-- Favicons-->
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-  
+	
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Main styles -->
@@ -20,19 +19,22 @@ N
   <!-- Icon fonts-->
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Plugin styles -->
-
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
   <!-- Your custom styles -->
   <link href="css/custom.css" rel="stylesheet">
 
   <script src="js/index.js"></script>
-  
+  <script src="js/view.js"></script>
+	
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
- <!-- Navigation-->
+  <!-- Navigation-->
+  <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
     <a class="navbar-brand" href="/"><h3 class="text-white">Go-Track</h3></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +48,7 @@ N
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
- 	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMylistings">
             <i class="fa fa-fw fa-list"></i>
             <span class="nav-link-text">Applications</span>
@@ -78,7 +80,11 @@ N
             <i class="fa fa-fw fa-plus-circle"></i>
             <span class="nav-link-text">Profile</span>
           </a>
+          
       </li>
+    
+          </ul>
+        </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -103,35 +109,148 @@ N
         <li class="breadcrumb-item">
           <a href="/admin_portal/index.html">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Pending Applications</li>
+        <li class="breadcrumb-item active">Application Details</li>
       </ol>
-    <!-- Example DataTables Card-->
-      <div class="card mb-3">
-        <div class="card-header">
-          <i class="fa fa-table"></i> Pending Applications</div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>View</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
+      <!-- Personal Details -->
+		<div class="box_general padding_bottom">
+			<div class="header_box version_2">
+				<h2><i class="fa fa-file"></i>Personal Details</h2>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+					  <label>Applicant photo</label>
+						<div id="img_placeholder_container" class="rounded">
+              <img id="img_placeholder" class="w-100 h-100 object-cover rounded" alt="upload gif" src="../images/gig-placeholder.png"/>
+            </div>
+				  </div>
+				</div>
+				<div class="col-md-8 add_top_30">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name">Full Name</label>
+								<input disabled type="text" id="name" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="father_name">Father name</label>
+								<input disabled type="text" id="father_name" class="form-control" placeholder="">
+							</div>
+						</div>
+					</div>
+					<!-- /row-->
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="father_CNIC">Father's / Guardian CNIC</label>
+								<input disabled id="father_CNIC" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="CNIC">Student CNIC/ B-Form</label>
+								<input disabled id="CNIC" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+					</div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="DOB">Date of Birth</label>
+                <input disabled id="DOB" type="date" class="form-control" placeholder="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="phone">Mobile No.</label>
+                <input disabled id="phone" type="text" class="form-control" placeholder="">
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="card-footer small text-muted">Updated <span id="updated_date">yesterday at 11:59 PM</span></div>
-      </div>
-    <!-- /tables-->
-    </div>
-    <!-- /container-fluid-->
-    </div>
-    <!-- /container-wrapper-->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input disabled id="city" type="text" class="form-control" placeholder="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input disabled id="email" type="email" class="form-control" placeholder="">
+              </div>
+            </div>
+          </div>
+				</div>
+			</div>
+		</div>
+    <!-- Academic Details -->
+    <div class="box_general padding_bottom">
+			<div class="header_box version_2">
+				<h2><i class="fa fa-file"></i>Academic Details and Documents</h2>
+			</div>
+			<div class="row">
+				<div class="col-md-8 add_top_30">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="last_exam">Last Exam Passed</label>
+								<input disabled type="text" id="last_exam" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="passing_year">Passing Year</label>
+								<input disabled type="number" id="passing_year" class="form-control" placeholder="">
+							</div>
+						</div>
+					</div>
+					<!-- /row-->
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="board">Board</label>
+								<input disabled id="board" type="text" class="form-control" placeholder="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="total_marks">Total Marks</label>
+								<input disabled id="total_marks" type="number" class="form-control" placeholder="">
+							</div>
+						</div>
+					</div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="roll_no">Board Roll No</label>
+                <input disabled id="roll_no" type="number" class="form-control" placeholder="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="institute">Institute</label>
+                <input disabled id="institute" type="text" class="form-control" placeholder="">
+              </div>
+            </div>
+          </div>
+				</div>
+        <div class="col-md-4" >
+          <div class="form-group">
+                <label style="margin-top: 28px;" class="d-block">Documents</label>
+                <a target="_blank" href="/admin_portal/" id="CNIC_DOC" class="btn btn-primary d-block">CNIC/B-Form</a>
+					      <a target="_blank" href="/admin_portal/" id="result_DOC" class="btn btn-primary mt-5 d-block">Result Card</a>
+          </div>
+				</div>
+			</div>
+		</div>
+		<!-- /row-->
+	  </div>
+	  <!-- /.container-fluid-->
+   	</div>
+    <!-- /.container-wrapper-->
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
@@ -170,12 +289,12 @@ N
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <script src="vendor/jquery.selectbox-0.2.js"></script>
-    <script src="vendor/jquery.magnific-popup.min.js"></script>
+	  <script src="vendor/jquery.selectbox-0.2.js"></script>
+	  <script src="vendor/jquery.magnific-popup.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="js/admin.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="js/pending.js"></script>
-  
+	  <!-- Custom scripts for this page-->
+	  <script src="vendor/dropzone.min.js"></script>
+	
 </body>
 </html>

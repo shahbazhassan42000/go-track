@@ -18,6 +18,8 @@ window.addEventListener("load", () => {
     const institute = document.getElementById("institute");
     const stud_pic = document.getElementById("stud_pic");
     const CNIC_DOC = document.getElementById("CNIC_DOC");
+    const result_DOC = document.getElementById("result_DOC");
+
 
     // Validations regex
     const CNIC_regex = /^[0-9]{5}-[0-9]{7}-[0-9]{1}$/;

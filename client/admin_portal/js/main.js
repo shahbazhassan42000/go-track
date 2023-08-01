@@ -35,7 +35,8 @@ $(document).ready(function () {
                     <td>${application.name}</td>
                     <td>${application.email}</td>
                     <td>${application.CNIC}</td>
-                    <td>${application.address}</td>
+                    <td>${application.city}</td>
+                    <td><a class="btn btn-primary view-btn" href="/admin_portal/view.html?id=${application.id}">View</a></td>
                     <td class="${bg_class}"><select class="application-status ${bg_class}" style="border:none; outline: none;" data-id="${application.id}">
                     <option value="Received" ${application.status === "Received" && 'selected'}>Received</option>
                     <option value="Pending" ${application.status === "Pending" && 'selected'}>Pending</option>
@@ -100,10 +101,10 @@ $(document).ready(function () {
 
             }); // END OF res.json()
         } else {
-            alert("ERROR!!! While getting applications.");
+            swal.fire("Error!!!", "While getting applications.", "error");
         }
     }).catch(err => {
-        alert("ERROR!!! While getting applications.");
+        swal.fire("Error!!!", "While getting applications.", "error");
     });
 });
 

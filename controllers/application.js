@@ -43,12 +43,6 @@ export default {
             if (!fields.institute) return res.status(400).json("Institute can't be blank");
             else data.institute = fields.institute[0];
 
-            // console.log(files);
-            // console.log(files.stud_pic);
-            // if (files?.stud_pic) return res.status(400).json("Student picture can't be blank");
-            // if (files?.CNIC_DOC) return res.status(400).json("CNIC document can't be blank");
-            // if (files?.result_DOC) return res.status(400).json("Result document can't be blank");
-
             data.userId = req.user.id; //set user ID
             //saving files
             if (!fsNative.existsSync(`${__dirname}/${UPLOAD_PATH}/`)) {
@@ -187,6 +181,17 @@ export default {
         }, err => {
             console.log(err);
             return res.status(400).json("ERROR!!! While getting applications by status.");
+        }).catch(next);
+    },
+    getById(req, res, next) {
+        if (!req.params.id) return res.status(400).json("must provide application id");
+        Application.findOne({ where: { id: req.params.id } }).then((application) => {
+            if (application) {
+                return res.status(200).json(application);
+            }
+        }, err => {
+            console.log(err);
+            return res.status(400).json("ERROR!!! While getting application by id.");
         }).catch(next);
     }
 };

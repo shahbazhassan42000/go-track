@@ -14,6 +14,9 @@ api.post('/', auth.authenticate, application.create);
 //get all applications of logged in user
 api.get('/', auth.authenticate, application.getUserApplications);
 
+//get application by id
+api.get('/getByID/:id', auth.authenticate, application.getById);
+
 //get all applications
 api.get('/all', auth.authenticate, auth.authorize('ADMIN'), application.getAll);
 
