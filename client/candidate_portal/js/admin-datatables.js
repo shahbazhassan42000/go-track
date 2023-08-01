@@ -33,7 +33,7 @@ $(document).ready(function () {
           $('#dataTable tbody').append(`<tr>
             <td>${application.name}</td>
             <td>${application.email}</td>
-            <td>${application.address}</td>
+            <td>${application.city}</td>
             <td class="${bg_class}">${application.status}</td>
             </tr>`);
           // update updated date if its yesterday then yesterday time AM/PM if its today then today time AM/PM if its before yesterday then date time AM/PM
@@ -56,10 +56,10 @@ $(document).ready(function () {
 
       }); // END OF res.json()
     } else {
-      alert("ERROR!!! While getting applications.");
+      swal.fire("ERROR!!!", "While getting applications.", "error");
     }
   }).catch(err => {
-    alert("ERROR!!! While getting applications.");
+    swal.fire("ERROR!!!", "While getting applications.", "error");
   });
 
 

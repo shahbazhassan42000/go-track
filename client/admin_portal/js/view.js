@@ -51,8 +51,8 @@ window.addEventListener("load", () => {
                 total_marks.value = data.total_marks;
                 roll_no.value = data.roll_no;
                 institute.value = data.institute;
-                CNIC_DOC.href = "pdfView.html?file=" + data.CNIC_DOC;
-                result_DOC.href = "pdfView.html?file=" + data.result_DOC;
+                CNIC_DOC.href = data.CNIC_DOC;
+                result_DOC.href = data.result_DOC;
                 img_placeholder.src = data.stud_pic;
             })
         } else {
