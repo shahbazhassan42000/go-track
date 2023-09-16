@@ -38,3 +38,5 @@ dist/
 config/dev.js
 config/prod.js
 src/env
+yarn.lock
+client/uploads

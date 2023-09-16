@@ -103,14 +103,14 @@ export default {
                 return res.status(403).json("Your account is not verified, Please check your email box.");
               }).catch(err => {
                 console.log(err);
-                return res.status(400).json("ERROR!!! While creating password.");
+                return res.status(400).json("ERROR!!! While sending verification email, please check your internet.");
               })
             } else {
-              return res.status(400).json("ERROR!!! While creating password.");
+              return res.status(400).json("ERROR!!! While sign in, Please try again later.");
             }
           }, err => {
             console.log(err);
-            return res.status(400).json("ERROR!!! While creating password.");
+            return res.status(400).json("ERROR!!! While sign in, Please try again later.");
           });
         } else {
           // generate JWT token
@@ -135,7 +135,7 @@ export default {
   signup(req, res, next) {
     const user = req.body.user;
     if (!user) {
-      return res.status(400).json("must provide user object in this format {user:{...}}");
+      return res.status(400).json("Must provide user object in this format {user:{...}}");
     }
     if (!user.name) return res.status(400).json("Name can't be blank");
     if (!user.email) return res.status(400).json("Email can't be blank");
@@ -170,14 +170,14 @@ export default {
                   return res.status(200).json(user);
                 }).catch(err => {
                   console.log(err);
-                  return res.status(400).json("ERROR!!! While creating password.");
+                  return res.status(400).json("ERROR!!! While sending verification email, please check your internet.");
                 })
               } else {
-                return res.status(400).json("ERROR!!! While creating password.");
+                return res.status(400).json("ERROR!!! While signup.");
               }
             }, err => {
               console.log(err);
-              return res.status(400).json("ERROR!!! While creating password.");
+              return res.status(400).json("ERROR!!! While signup.");
             });
           }
         }, err => {

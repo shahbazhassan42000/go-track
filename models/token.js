@@ -29,7 +29,7 @@ const Token = sequelize.define('token', {
             // this will set a timer to delete the token after an hour
             setTimeout(() => {
                 token.destroy();
-            }, 3600000);
+            }, 3600);
         }
     }
 });
